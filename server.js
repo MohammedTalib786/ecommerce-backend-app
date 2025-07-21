@@ -129,12 +129,18 @@ app.get('/blogs', checkAuthAdmin, (req, res) => {
 app.get('/logout', checkAuthAdmin, (req, res) => {
   res.clearCookie('auth_token', {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: true, // explicitly true on Vercel
     sameSite: 'strict',
+    path: '/', // VERY IMPORTANT
   });
   res.sendFile(path.join(__dirname, 'public', 'logout.html'));
 });
 
+
+// To Test the Authentication
+app.get('/check-auth', (req, res) => {
+  res.send(req.cookies.auth_token ? 'Authenticated' : 'Not Authenticated');
+});
 
 // >>>>>>>>>>>>>>>>>>>>>> Serve index.html at root
 app.get('/', (req, res) => {
