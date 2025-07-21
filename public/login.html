@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- >>>>>>>>>>>>>> IMP Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+
+    <title>Login</title>
+
+
+    <!-- >>>>>>>>>>>>>> Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- >>>>>>>>>>>>>> Font Awsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- >>>>>>>>>>>>>> Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+</head>
+
+<body class="login_pg_body">
+
+    <div
+        class="login_pg main_container container w-100 p-0 d-flex flex-column justify-content-center align-items-center ">
+
+        <div class=" glass_cont w-full ">
+
+            <h1 class="main_title text-center text-white ">Admin Login</h1>
+
+            <form action="/login" method="POST" class="w-100 d-flex flex-column gap-2">
+                <div class="username_cont">
+                    <input type="text" name="username" class="form-control my-2" id="username" placeholder="Username"
+                        required />
+                </div>
+                <div class="password_cont position-relative">
+                    <input type="password" name="password" class="form-control my-2" id="password"
+                        placeholder="Password" required />
+                    <button class="position-absolute eye_icon border-0  ">
+
+                        <i class="fa-regular fa-eye  text-white  "></i>
+                    </button>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <a href="/" class="btn btn-primary go_to_home ">Go to Home Page</a>
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- >>>>>>>>>>>>>>>>>> Custom Script File -->
+    <script src="script.js"></script>
+
+    <!-- >>>>>>>>>>>>>>>>>> Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

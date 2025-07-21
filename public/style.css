@@ -1,0 +1,552 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+:root {
+    /* >>>>>>>>> Colors */
+    --prim-clr: #0D6EFD;
+    /* --prim-clr: red; */
+    --black-1c-clr: #1C1C1C;
+    --light-grey: #DEE2E7;
+    --green: #00ab00;
+
+    /* >>>>>>>>> Fonts */
+    --font-head: 'Poppins';
+    --font-body: 'Montserrat';
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*,
+html,
+body {
+    scroll-behavior: smooth;
+    font-family: var(--font-body);
+}
+
+
+html,
+body {
+    height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-head);
+    color: var(--black-1c-clr);
+}
+
+h1 {
+    font-size: 40px;
+    line-height: 50px;
+}
+
+h2 {
+    font-size: 34px;
+    line-height: 40px;
+}
+
+p,
+span,
+ul,
+li {
+    font-family: var(--font-body);
+}
+
+a.btn.btn-primary,
+button.btn.btn-primary {
+    color: white !important;
+    background-color: var(--prim-clr);
+    border: 0;
+    outline: 0;
+    text-decoration: none;
+}
+
+a {
+    color: black;
+    text-decoration: none !important;
+}
+
+
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Home Page */
+.home_pg_cont {
+    min-height: 100vh;
+    display: flex;
+}
+
+.home_pg_cont h1 {
+    font-weight: 300;
+}
+
+.home_pg_cont h1 span {
+    font-weight: 500;
+}
+
+
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Dashboard Page */
+.dashboard_pg_all_cont {
+    width: 100%;
+}
+
+.admin-panel {
+    width: 100%;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 10%;
+    min-width: 180px;
+    background-color: var(--light-grey);
+    padding: 30px 20px;
+    height: 100vh;
+    flex-shrink: 0;
+}
+
+.admin-panel .row-2 .pg_link .tooltip_hov {
+    position: absolute;
+    min-width: 200px;
+    /* background: #cacaca; */
+    background: var(--prim-clr);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    top: -5px;
+    left: 100px;
+    /* left: 130px; */
+    opacity: 0;
+    pointer-events: none;
+    transition: all .25s ease-in-out;
+    z-index: 9999;
+}
+
+.admin-panel .row-2 .pg_link .tooltip_hov::before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    /* background: #cacaca; */
+    background: var(--prim-clr);
+    /* background: #f88181; */
+    position: absolute;
+    display: flex;
+    transform: rotate(45deg);
+    left: -7px;
+    top: 11px;
+}
+
+.admin-panel .row-2 li.pg_link:hover .tooltip_hov {
+    opacity: 1;
+    pointer-events: all;
+    left: 145px;
+    transition: all .25s ease-in-out;
+}
+
+.admin-panel .row-2 li.pg_link .tooltip_hov a {
+    color: white;
+}
+
+
+.admin-panel .row-2 li.pg_link>a:hover {
+    color: var(--prim-clr);
+}
+
+.admin-panel .row-2 li.pg_link .tooltip_hov a:hover {
+    transition: all .25s ease-in-out;
+}
+
+.sidebar_mob {
+    background-color: var(--light-grey);
+    padding: 20px 30px !important;
+}
+
+.sidebar_mob button.navbar-toggler {
+    box-shadow: none;
+    border: 1px solid black;
+}
+
+.sidebar_mob button.navbar-toggler .navbar-toggler-icon {
+    background-image: url('./assets/hamburger-menu-4.png');
+    width: 28px;
+}
+
+.sidebar_mob button.navbar-toggler[aria-expanded=true] .navbar-toggler-icon {
+    background-image: url('./assets/delete-sign.png');
+}
+
+.row-3 i {
+    font-size: 34px;
+    line-height: 34px;
+    font-weight: 600;
+    color: var(--black-1c-clr);
+}
+
+.dashboard_pg_all_cont ul li a,
+.dashboard_pg_all_cont .row-3 span {
+    color: var(--black-1c-clr);
+}
+
+.dashboard_pg_all_cont ul li.active>a {
+    color: var(--prim-clr);
+}
+
+.dashboard_pg_all_cont ul {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 500 !important;
+    color: var(--black-1c-clr);
+}
+
+.dashboard_pg_all_cont .row-3 span {
+    font-size: 20px;
+    font-weight: 500 !important;
+}
+
+.dashboard_pg_all_cont .row-3 a:not(a.logout) {
+    color: var(--black-1c-clr);
+}
+
+
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Main Content */
+.main-content {
+    width: 90%;
+    padding: 50px 60px 50px 50px;
+    overflow-y: auto;
+    height: 100vh;
+    background-color: #f5f6fa;
+}
+
+.main-content .top_cont {
+    padding-bottom: 40px;
+}
+
+.main-content .top_cont h2 {
+    width: fit-content;
+    font-weight: 400;
+}
+
+.main-content .all_prods {
+    gap: 16px;
+}
+
+.main-content .all_prods .prod {
+    /* background: antiquewhite; */
+    background: var(--light-grey);
+    padding: 10px 15px;
+    border-radius: 6px;
+}
+
+.main-content .all_prods .prod h3 {
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 400;
+}
+
+
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 404 - Not Found Page */
+#notfound {
+    position: relative;
+    height: 100vh;
+}
+
+#notfound .notfound {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.notfound {
+    max-width: 767px;
+    width: 100%;
+    line-height: 1.4;
+    text-align: center;
+    padding: 20px;
+}
+
+.notfound .notfound-404 {
+    position: relative;
+    height: 220px;
+}
+
+.notfound .notfound-404 h1 {
+    font-family: var(--font-head);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 186px;
+    line-height: 200px;
+    font-weight: 200;
+    margin: 0px;
+    background: linear-gradient(130deg, #0D6EFD, #5599ff);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-transform: uppercase;
+}
+
+.notfound h2 {
+    font-family: var(--font-head);
+    font-size: 33px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-top: 0px;
+    margin-bottom: 25px;
+    letter-spacing: 3px;
+}
+
+.notfound p {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 0px;
+    margin-bottom: 25px;
+}
+
+.notfound a {
+    font-family: 'Kanit', sans-serif;
+    color: var(--prim-clr);
+    font-weight: 200;
+    text-decoration: none;
+    border-bottom: 1px dashed var(--prim-clr);
+    border-radius: 2px;
+}
+
+
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Login Page */
+.login_pg_body {
+    background: linear-gradient(145deg, #7bb0ff, #5599ff, #81b3ff);
+}
+
+.login_pg {
+    min-height: 100vh;
+    max-width: 660px !important;
+}
+
+.login_pg .main_title {
+    font-size: 40px;
+    line-height: 46px;
+    font-weight: 300;
+}
+
+.login_pg .password_cont .eye_icon {
+    width: fit-content;
+    outline: 0;
+    background: transparent;
+    cursor: pointer;
+    top: 18px;
+    right: 12px;
+}
+
+.glass_cont {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 110px 60px;
+    /* background: aqua; */
+    border-radius: 32px;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.login_pg .form-control {
+    background-color: transparent !important;
+    box-shadow: none;
+    outline: 0;
+    color: white !important;
+}
+
+.login_pg .form-control:focus {
+    background-color: transparent !important;
+    border-color: white !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    color: white !important;
+}
+
+.login_pg .form-control::placeholder {
+    color: white !important;
+}
+
+.login_pg a.go_to_home {
+    border: 1px solid white !important;
+    background-color: transparent !important;
+    color: white !important;
+}
+
+.login_pg a.go_to_home:hover {
+    border: 1px solid var(--prim-clr) !important;
+    background-color: var(--prim-clr) !important;
+    color: white !important;
+}
+
+
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Logout Page */
+.logout_pg {
+    min-height: 100vh;
+    /* background: antiquewhite; */
+    padding: 0 50px;
+    gap: 50px;
+}
+
+.logout_pg .texts h1 {
+    font-weight: 300;
+}
+
+.logout_pg .texts h2 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.logout_pg .tick_icon {
+    /* background: aqua; */
+    padding: 18px;
+    border-radius: 50%;
+    /* border: 2px solid #00ab00; */
+    border: 2px solid var(--green);
+}
+
+
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Add new prod */
+.add_new_cont .form-control {
+    box-shadow: none;
+    outline: 0;
+}
+
+.add_new_cont .form-control:focus {
+    border-color: var(--prim-clr) !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+.add_new_cont button.btn[type=submit] {
+    width: fit-content;
+    padding: 8px 28px;
+}
+
+.add_new_cont .inp_cont label {
+    font-weight: 500;
+}
+
+.add_new_cont .three_col_row {
+    width: 33%;
+}
+
+.add_new_cont .chevDownIcon {
+    position: absolute;
+    right: 14px;
+    bottom: 20px;
+}
+
+.main-content .add_new_cont h1 {
+    font-size: 32px;
+    line-height: 38px;
+    font-weight: 400;
+}
+
+
+
+
+
+
+
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>> Responsive Design */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .main-content {
+        padding: 50px 30px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .admin-panel {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .main-content {
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        padding: 50px 30px;
+    }
+
+    .dashboard_pg_all_cont .admin-panel {
+        overflow-y: scroll !important;
+    }
+}
+
+
+@media (max-width: 767px) {
+    .sidebar_mob {
+        padding: 20px !important;
+    }
+
+    .main-content {
+        padding: 50px 20px;
+    }
+
+    .notfound .notfound-404 {
+        position: relative;
+        height: 168px;
+    }
+
+    .notfound .notfound-404 h1 {
+        font-size: 142px;
+    }
+
+    .notfound h2 {
+        font-size: 22px;
+    }
+
+    .glass_cont {
+        padding: 100px 20px;
+    }
+
+    .logout_pg {
+        padding: 0 5px;
+        gap: 34px;
+    }
+
+    .logout_pg .tick_icon {
+        width: 72px;
+        padding: 14px;
+    }
+
+    .logout_pg .texts h1 {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+    .logout_pg .texts h2 {
+        font-size: 22px;
+        font-weight: 500;
+    }
+
+}
