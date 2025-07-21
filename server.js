@@ -134,16 +134,16 @@ app.get('/logout', checkAuthAdmin, (req, res) => {
     sameSite: 'strict',
     path: '/', // VERY IMPORTANT
   });
-  // res.sendFile(path.join(__dirname, 'public', 'logout.html'));
-  res.redirect('/login'); // or send logout.html
-
+  res.sendFile(path.join(__dirname, 'public', 'logout.html'));
+  // res.redirect('/login'); // or send logout.html
 });
 
 
-// To Test the Authentication
+// >>>>>>>>>>>>>>>>>>>>>> To Test the Authentication
 app.get('/check-auth', (req, res) => {
   res.send(req.cookies.auth_token ? 'Authenticated' : 'Not Authenticated');
 });
+
 
 // >>>>>>>>>>>>>>>>>>>>>> Serve index.html at root
 app.get('/', (req, res) => {
@@ -177,5 +177,6 @@ app.use((req, res) => {
   }
   res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
 });
+
 
 app.listen(port, () => console.log(`App live on server http://localhost:${port}`))
