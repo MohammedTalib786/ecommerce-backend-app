@@ -73,9 +73,10 @@ app.post('/login', loginLimiter, (req, res) => {
   if (process.env.DASH_USERNAME === username && process.env.DASH_PASS === password) {
     res.cookie('auth_token', process.env.SECRET_TOKEN, {
       httpOnly: true, // JS can't access this
-      // secure: true, // set to true in production with HTTPS
-      secure: process.env.NODE_ENV === 'production', // true on Vercel
-      sameSite: 'strict'
+      secure: true, // set to true in production with HTTPS
+      // secure: process.env.NODE_ENV === 'production', // true on Vercel
+      sameSite: 'strict',
+      path: '/', // ✅ make sure this matches logout
     });
     return res.redirect('/dashboard');
   }
@@ -133,7 +134,9 @@ app.get('/logout', checkAuthAdmin, (req, res) => {
     sameSite: 'strict',
     path: '/', // VERY IMPORTANT
   });
-  res.sendFile(path.join(__dirname, 'public', 'logout.html'));
+  // res.sendFile(path.join(__dirname, 'public', 'logout.html'));
+  res.redirect('/login'); // or send logout.html
+
 });
 
 
