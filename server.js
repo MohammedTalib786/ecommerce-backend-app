@@ -51,7 +51,11 @@ const loginLimiter = rateLimit({
 
 // >>>>>>>>>>>>>>>>>>>>>> Serve Login Page - GET
 app.get('/login', loginLimiter, (req, res) => {
-  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   if (req.cookies.auth_token) {
     return res.redirect('/already-login');
   }
@@ -60,14 +64,20 @@ app.get('/login', loginLimiter, (req, res) => {
 
 // >>>>>>>>>>>>>>>>>>>>>> Checks if the user is already Logged In
 app.get('/already-login', checkAuthAdmin, (req, res) => {
-  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   res.sendFile(path.join(__dirname, 'public', 'already-login.html'));
 })
 
 
 // >>>>>>>>>>>>>>>>>>>>>> Validate Login Page for Rediretion - POST
 app.post('/login', loginLimiter, (req, res) => {
-  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
   let { username, password } = req.body;
 
   if (process.env.DASH_USERNAME === username && process.env.DASH_PASS === password) {
@@ -89,7 +99,11 @@ app.post('/login', loginLimiter, (req, res) => {
 // >>>>>>>>>>>>>>>>>>>>>> Serve Dashboard Page with Authentication
 app.get('/dashboard', checkAuthAdmin, (req, res) => {
   // Prevent caching the dashboard page
-  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
 });
 
@@ -97,7 +111,11 @@ app.get('/dashboard', checkAuthAdmin, (req, res) => {
 // >>>>>>>>>>>>>>>>>>>>>> Serve Add New Product Page with Authentication
 app.get('/add-new-product', checkAuthAdmin, (req, res) => {
   // Prevent caching the dashboard page
-  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   res.sendFile(path.join(__dirname, 'public', 'add-new-product.html'));
 });
 
@@ -105,7 +123,11 @@ app.get('/add-new-product', checkAuthAdmin, (req, res) => {
 // >>>>>>>>>>>>>>>>>>>>>> Serve Add New Blog Page with Authentication
 app.get('/add-new-blog', checkAuthAdmin, (req, res) => {
   // Prevent caching the dashboard page
-  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   res.sendFile(path.join(__dirname, 'public', 'add-new-blog.html'));
 });
 
@@ -113,7 +135,11 @@ app.get('/add-new-blog', checkAuthAdmin, (req, res) => {
 // >>>>>>>>>>>>>>>>>>>>>> Serve All Products Page with Authentication
 app.get('/products', checkAuthAdmin, (req, res) => {
   // Prevent caching the dashboard page
-  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   res.sendFile(path.join(__dirname, 'public', 'products.html'));
 });
 
@@ -121,21 +147,44 @@ app.get('/products', checkAuthAdmin, (req, res) => {
 // >>>>>>>>>>>>>>>>>>>>>> Serve All Blogs Page with Authentication
 app.get('/blogs', checkAuthAdmin, (req, res) => {
   // Prevent caching the dashboard page
-  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   res.sendFile(path.join(__dirname, 'public', 'blogs.html'));
 });
 
 
 // >>>>>>>>>>>>>>>>>>>>>> Logout Page
+// >>>>>>>>>>>>>>>>>>>>>> Logout Page (Route)
 app.get('/logout', checkAuthAdmin, (req, res) => {
+  console.log('Attempting logout... Existing cookies:', req.cookies);
+
   res.clearCookie('auth_token', {
     httpOnly: true,
-    secure: true, // explicitly true on Vercel
+    secure: true,
     sameSite: 'strict',
-    path: '/', // VERY IMPORTANT
+    path: '/',
+    expires: new Date(0),
   });
-  res.sendFile(path.join(__dirname, 'public', 'logout.html'));
-  // res.redirect('/login'); // or send logout.html
+
+  // >>>>> Try using this if the above not worked
+  // res.cookie('auth_token', '', {
+  //   httpOnly: true,
+  //   secure: true,
+  //   sameSite: 'strict',
+  //   path: '/',
+  //   expires: new Date(0),
+  // });
+
+  console.log('Cleared cookie - checking again:', req.cookies['auth_token']);
+
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  // res.sendFile(path.join(__dirname, 'public', 'logout.html'));
+  res.redirect('/login'); // or send logout.html
 });
 
 
@@ -158,14 +207,22 @@ app.use('/api/blogs', blogsRoutes);
 
 // >>>>>>>>>>>>>>>>>>>>>> Serve Edit Product Page
 app.get('/edit-product.html', checkAuthAdmin, (req, res) => {
-  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   res.sendFile(path.join(__dirname, 'public', 'edit-product.html'));
 });
 
 
 // >>>>>>>>>>>>>>>>>>>>>> Serve Edit Blog Page
 app.get('/edit-blog.html', checkAuthAdmin, (req, res) => {
-  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   res.sendFile(path.join(__dirname, 'public', 'edit-blog.html'));
 });
 
@@ -179,4 +236,4 @@ app.use((req, res) => {
 });
 
 
-app.listen(port, () => console.log(`App live on server http://localhost:${port}`))
+app.listen(port, () => console.log(`App live on server http://localhost:${port}`));

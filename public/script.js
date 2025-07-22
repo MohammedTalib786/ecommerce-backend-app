@@ -67,19 +67,6 @@ if (eye_icon) {
 }
 
 
-
-function logoutUser() {
-    // Call logout API (backend)
-    console.log('logout function called!')
-    fetch('/logout', { credentials: 'include' })
-        .then(() => {
-            // Force client-side deletion
-            document.cookie = 'auth_token=; Max-Age=0; path=/; secure; samesite=strict';
-            window.location.href = '/login';
-        });
-}
-
-
 // >>>>>>>>>>>>>>>>>>>>>>>> Add New Product Form Submit Data - add-new-prod Page
 // if (add_prod_form) {
 //     add_prod_form.addEventListener('submit', (event) => {
