@@ -243,9 +243,14 @@ a {
 }
 
 .main-content .all_prods .prod h3 {
-    font-size: 22px;
-    line-height: 28px;
+    font-size: 18px;
+    line-height: 24px;
     font-weight: 400;
+    margin-right: 12px !important;
+}
+
+.prod_details {
+    margin-top: 5px;
 }
 
 

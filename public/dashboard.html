@@ -58,8 +58,6 @@
 
         <div class="admin-panel d-flex overflow-hidden  ">
 
-
-
             <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>> Sidebar -->
 
             <!-- >>>>>>>>>>>>>>>>>> Mobile View -->
@@ -92,7 +90,7 @@
 
                             <i class="fa-regular fa-circle-user"></i>
                             <span>Admin</span>
-                            <a href="/logout" class="logout text-danger " >Logout</a>
+                            <a href="/logout" class="logout text-danger ">Logout</a>
                         </div>
 
                     </div>
@@ -131,8 +129,8 @@
 
                     <i class="fa-regular fa-circle-user"></i>
                     <span>Admin</span>
-                    <a href="/logout" class="logout text-danger " >Logout</a>
-                    
+                    <a href="/logout" class="logout text-danger ">Logout</a>
+
                 </div>
 
             </aside>
@@ -160,7 +158,6 @@
                         </div>
 
 
-
                     </div>
 
                     <div class=" recent_items recent_blogs w-100 ">
@@ -175,15 +172,10 @@
                         </div>
                     </div>
 
-
-
                 </div>
-
-
 
             </main>
         </div>
-
 
     </div>
 
@@ -205,11 +197,12 @@
             }
 
             data.map((elem) => {
+                // console.log('elem final ver', elem.name.slice(0, 14) + " ... " + elem.name.slice(elem.name.length - 14, elem.name.length))
                 iHtml +=
                     `
                         <div class="prod d-flex justify-content-between align-items-center  ">
                             <a href="/api/products/${elem.slug}" target="_blank" class="text-black">
-                                <h3 class="m-0  ">${elem.name}</h3>
+                                <h3 title="${elem.name}" class="m-0  ">${elem.name.length < 27 ? elem.name : elem.name.slice(0, 14) + " ... " + elem.name.slice(elem.name.length - 14, elem.name.length)}</h3>
                                 <div class="prod_details d-flex gap-3 ">
                                     <p class="m-0  ">ID: ${elem.id}</p>
                                     <p class="m-0  ">SKU: ${elem.sku}</p>
@@ -225,7 +218,7 @@
                     `;
 
             })
-            cont.innerHTML = iHtml
+            cont.innerHTML = iHtml  + `<a href="/products" class="btn btn-primary" style="width: fit-content;" >View More</a>`;
         })()
 
         const fetchBlogData = async () => {
@@ -239,11 +232,12 @@
             }
 
             data.map((elem) => {
+                // console.log('elem final ver', elem.name.slice(0, 14) + " ... " + elem.name.slice(elem.name.length - 14, elem.name.length))
                 iHtml +=
                     `
                         <div class="prod d-flex justify-content-between align-items-center  ">
                             <a href="/api/blogs/${elem.blog_slug}" target="_blank" class="text-black">
-                                <h3 class="m-0  ">${elem.blog_title}</h3>
+                                <h3 title="${elem.blog_title}" class="m-0  ">${elem.blog_title.length < 27 ? elem.blog_title : elem.blog_title.slice(0, 14) + " ... " + elem.blog_title.slice(elem.blog_title.length - 14, elem.blog_title.length)}</h3>
                                 <div class="prod_details d-flex gap-3 ">
                                     <p class="m-0  ">ID: ${elem.blog_id}</p>
                                 </div>
@@ -258,13 +252,10 @@
                     `;
 
             })
-            cont_blogs.innerHTML = iHtml
+            cont_blogs.innerHTML = iHtml + `<a href="/blogs" class="btn btn-primary" style="width: fit-content;" >View More</a>`;
         }
 
         fetchBlogData()
-
-
-
 
     </script>
 

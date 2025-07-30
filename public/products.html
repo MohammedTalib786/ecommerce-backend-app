@@ -28,6 +28,10 @@
 
 
     <style>
+        #prod_counts {
+            font-size: 22px;
+        }
+
         .loader {
             width: 48px;
             height: 48px;
@@ -92,7 +96,7 @@
 
                             <i class="fa-regular fa-circle-user"></i>
                             <span>Admin</span>
-                            <a href="/logout" class="logout text-danger " >Logout</a>
+                            <a href="/logout" class="logout text-danger ">Logout</a>
                         </div>
 
                     </div>
@@ -131,7 +135,7 @@
 
                     <i class="fa-regular fa-circle-user"></i>
                     <span>Admin</span>
-                    <a href="/logout" class="logout text-danger " >Logout</a>
+                    <a href="/logout" class="logout text-danger ">Logout</a>
                 </div>
 
             </aside>
@@ -145,7 +149,7 @@
 
                 <div class="top_cont d-flex justify-content-between  ">
 
-                    <h2 class="text-center m-0 ">All Products</h2>
+                    <h2 class="text-center m-0 ">All Products&nbsp;<span id="prod_counts">(0)</span></h2>
                     <button class="btn btn-primary "> <a href="/add-new-product" class="text-white">Add
                             New</a></button>
                 </div>
@@ -176,10 +180,8 @@
 
                 </div>
 
-
             </main>
         </div>
-
 
     </div>
 
@@ -187,13 +189,15 @@
 
 
 
-
     <script>
+        let prod_counts = document.getElementById('prod_counts');
         let cont = document.getElementById('cont');
         (async () => {
             let res = await fetch('/api/products');
             let data = await res.json();
-            // console.log(data);
+
+            // console.log('data', data);
+            prod_counts.innerHTML = `(${data.length})`;
             let iHtml = '';
 
             // console.log('main data', data)
