@@ -10,6 +10,11 @@ const rateLimit = require("express-rate-limit");
 const blogsRoutes = require('./routes/blogsRoutes')
 const productsRoutes = require('./routes/productsRoutes')
 const checkAuthAdmin = require('./middleware/auth')
+// const RazorpayHandler = require('./api/orders')
+const ordersRoutes = require("./api/orders");
+
+
+
 
 // >>>>>>>>>>>>>>>>>>>>>> Import Database
 require('./db/db');
@@ -27,7 +32,16 @@ app.use((req, res, next) => { // protects .html pages to without logged in users
 });
 
 
-app.use(cors());
+// app.use(cors());
+// app.use(cors({ origin: "*" }));
+
+app.use(cors({
+  origin: "http://localhost:5173",
+  methods: ["GET", "POST", "OPTIONS"],
+}));
+
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // To handle form submissions
 // app.use(express.static('public'));
@@ -46,6 +60,10 @@ const loginLimiter = rateLimit({
     });
   },
 });
+
+
+// >>>>>>>>>>>>>>>>>>>>>> Razorpay Route for Payment Gateway
+app.use("/api/orders", ordersRoutes);
 
 
 
@@ -230,6 +248,17 @@ app.use((req, res) => {
   }
   res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
 });
+
+
+// Razorpay Payment Integration Endpoint
+// app.post('/api/orders', RazorpayHandler)
+// app.get('/api/orders', (req, res) => {
+//   res.send('req:', req)
+// })
+// app.use('/api/orders', RazorpayHandler)
+
+
+
 
 
 app.listen(port, () => console.log(`App live on server http://localhost:${port}`));
