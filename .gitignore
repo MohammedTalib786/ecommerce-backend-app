@@ -6,3 +6,7 @@ blog_data.json
 
 IMP_NOTE.txt
 .env
+
+
+# Ignore Windows system files
+desktop.ini

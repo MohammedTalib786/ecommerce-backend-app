@@ -11,23 +11,22 @@ const razorpay = new Razorpay({
 
 // POST /api/orders
 router.post("/", async (req, res) => {
-  const { items, name } = req.body;
+  const { items, name, totalAmt } = req.body;
 
   // Calculate total amount
-  let totalAmount = 0;
-  items.forEach((item) => {
-    totalAmount += item.price * item.quantity;
-  });
+  // let totalAmount = 0;
+  // items.forEach((item) => {
+  //   totalAmount += item.price * item.quantity;
+  // });
 
   const options = {
-    amount: totalAmount * 100, // paise
+    amount: totalAmt * 100, // paise
     currency: "INR",
     receipt: `receipt_order_${Math.random().toString().slice(2, 8)}`,
   };
 
   try {
     const order = await razorpay.orders.create(options);
-
     res.status(200).json({
       orderId: order.id,
       amount: order.amount,
