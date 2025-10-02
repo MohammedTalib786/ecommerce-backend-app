@@ -13,42 +13,45 @@ const checkAuthAdmin = require('./middleware/auth')
 // const RazorpayHandler = require('./api/orders')
 const ordersRoutes = require("./api/orders");
 
-
 // >>>>>>>>>>>>>>>>>>>>>> Import Database
 require('./db/db');
 
 
 
-
 // Allowed domains
-// const allowedOriginsBack = JSON.parse(process.env.ALLOWED_ORIGINS_CORS)
-const allowedOrigins = process.env.ALLOWED_ORIGINS_CORS.split(",")
-
-// console.log('Origins', process.env.ALLOWED_ORIGINS_CORS)
-// console.log('allowedOriginsBack', allowedOriginsBack)
-// console.log('allowedOrigins', allowedOrigins)
+// ✅ Hardcoded allowed origins
+const allowedOrigins = [
+  "https://your-frontend-domain.com",
+  "https://another-frontend.com",
+  "https://mohammedtalib786.github.io", // GitHub Pages
+  "https://talibkweb.github.io",       // Another GitHub Pages
+];
 
 
 // CORS options
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps, curl, etc.)
+    // console.log("Request origin:", origin);
+
+    // Allow requests with no origin (mobile apps, curl, Postman)
     if (!origin) return callback(null, true);
 
     // Allow listed domains or any localhost
-    if (
-      allowedOrigins.includes(origin) ||
-      /^https?:\/\/localhost(:\d+)?$/.test(origin)
-    ) {
+    if (allowedOrigins.includes(origin) || /^https?:\/\/localhost(:\d+)?$/.test(origin)) {
       return callback(null, true);
     }
 
-    // Otherwise, block
+    // Allow listed domains or localhost
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    // Block everything else
     return callback(new Error("Not allowed by CORS"));
   },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true, // if you need cookies/auth headers
+  credentials: true, // allow cookies/auth headers
 };
 
 
@@ -66,7 +69,6 @@ app.use((req, res, next) => { // protects .html pages to without logged in users
   }
   next();
 });
-
 
 
 app.use(express.json());
