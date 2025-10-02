@@ -18,45 +18,30 @@ require('./db/db');
 
 
 
-// Allowed domains
-// ✅ Hardcoded allowed origins
+
 const allowedOrigins = [
   "https://your-frontend-domain.com",
   "https://another-frontend.com",
-  "https://mohammedtalib786.github.io", // GitHub Pages
-  "https://talibkweb.github.io",       // Another GitHub Pages
+  "https://mohammedtalib786.github.io",
+  "https://talibkweb.github.io",
+  "http://192.168.0.114:5173",
+  "http://localhost:5173",
+  "http://localhost:5500",
+  "http://localhost:5501"
 ];
 
 
-// CORS options
-const corsOptions = {
-  origin: function (origin, callback) {
-    // console.log("Request origin:", origin);
+app.use((req, res, next) => {
+  let origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', true);
+  next();
+});
 
-    // Allow requests with no origin (mobile apps, curl, Postman)
-    if (!origin) return callback(null, true);
-
-    // Allow listed domains or any localhost
-    if (allowedOrigins.includes(origin) || /^https?:\/\/localhost(:\d+)?$/.test(origin)) {
-      return callback(null, true);
-    }
-
-    // Allow listed domains or localhost
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-
-    // Block everything else
-    return callback(new Error("Not allowed by CORS"));
-  },
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true, // allow cookies/auth headers
-};
-
-
-// Apply CORS middleware
-app.use(cors(corsOptions));
 
 
 // >>>>>>>>>>>>>>>>>>>>>> Middlewares
