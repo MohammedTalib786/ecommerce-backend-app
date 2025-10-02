@@ -14,10 +14,44 @@ const checkAuthAdmin = require('./middleware/auth')
 const ordersRoutes = require("./api/orders");
 
 
-
-
 // >>>>>>>>>>>>>>>>>>>>>> Import Database
 require('./db/db');
+
+
+
+
+// Allowed domains
+const allowedOrigins = JSON.parse(process.env.ALLOWED_ORIGINS_CORS)
+
+// console.log('Origins', process.env.ALLOWED_ORIGINS_CORS)
+// console.log('Parsed Origins', JSON.parse(process.env.ALLOWED_ORIGINS_CORS))
+
+
+// CORS options
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+
+    // Allow listed domains or any localhost
+    if (
+      allowedOrigins.includes(origin) ||
+      /^https?:\/\/localhost(:\d+)?$/.test(origin)
+    ) {
+      return callback(null, true);
+    }
+
+    // Otherwise, block
+    return callback(new Error("Not allowed by CORS"));
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true, // if you need cookies/auth headers
+};
+
+
+// Apply CORS middleware
+app.use(cors(corsOptions));
 
 
 // >>>>>>>>>>>>>>>>>>>>>> Middlewares
@@ -30,15 +64,6 @@ app.use((req, res, next) => { // protects .html pages to without logged in users
   }
   next();
 });
-
-
-// app.use(cors());
-// app.use(cors({ origin: "*" }));
-
-app.use(cors({
-  origin: "http://localhost:5173",
-  methods: ["GET", "POST", "OPTIONS"],
-}));
 
 
 
