@@ -21,11 +21,11 @@ require('./db/db');
 
 
 // Allowed domains
-const allowedOriginsBack = JSON.parse(process.env.ALLOWED_ORIGINS_CORS)
+// const allowedOriginsBack = JSON.parse(process.env.ALLOWED_ORIGINS_CORS)
 const allowedOrigins = process.env.ALLOWED_ORIGINS_CORS.split(",")
 
 // console.log('Origins', process.env.ALLOWED_ORIGINS_CORS)
-console.log('allowedOriginsBack', allowedOriginsBack)
+// console.log('allowedOriginsBack', allowedOriginsBack)
 console.log('allowedOrigins', allowedOrigins)
 
 
