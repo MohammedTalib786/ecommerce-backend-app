@@ -155,7 +155,7 @@
                             New</a></button>
                 </div>
 
-                <div class="all_prods d-flex flex-column " id="cont">
+                <div class="all_prods d-flex flex-column align-items-end " id="cont">
 
 
                     <!-- <div class="prod d-flex justify-content-between align-items-center  ">
@@ -206,7 +206,7 @@
                 iHtml = "<p style='font-size: 18px;' class='' > No Products Found!</p>"
             }
 
-            data.map((elem) => {
+            data.map((elem, ind) => {
                 // console.log('elem.name', elem.name,)
                 // console.log('elem.slug', elem.slug)
                 // console.log('elem ', elem)
@@ -215,6 +215,7 @@
                 iHtml +=
                     `
                         <div class="prod d-flex justify-content-between align-items-center  ">
+                            <span class="sr_no">${ind + 1}.</span>
                             <a href="/api/products/${elem.slug}" target="_blank" class="text-black">
                                 <h3 class="m-0  ">${elem.name}</h3>
                                 <div class="prod_details d-flex gap-3 ">
@@ -224,7 +225,7 @@
                             </a>
                             <div class="btns d-flex gap-3 ">
                                 <a href="/edit-product.html?slug=${elem.slug}" class="btn btn-primary  ">Edit</a>
-                                <form action="/api/products/delete?id=${elem.id}" method="POST">
+                                <form action="/api/products/delete?id=${elem.id}" method="POST" class="deleteDataForm" >
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </div>

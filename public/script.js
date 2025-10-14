@@ -1,12 +1,38 @@
-
 let eye_icon = document.querySelector('.login_pg .eye_icon');
 const add_prod_form = document.getElementById('add_prod_form');
 const add_blog_form = document.getElementById('add_blog_form');
-let the_slugs = Array.from(document.querySelectorAll('.the_slug'))
-let the_names = Array.from(document.querySelectorAll('.the_name'))
+let the_slugs = Array.from(document.querySelectorAll('.the_slug'));
+let the_names = Array.from(document.querySelectorAll('.the_name'));
 let chevronDown = `<i class="fa-solid fa-chevron-down chevDownIcon "></i>`;
-let dropDownContList = Array.from(document.querySelectorAll('select.form-control'))
+let dropDownContList = Array.from(document.querySelectorAll('select.form-control'));
 
+
+
+// >>>>>>>>>>>>>>>>>>>>>>>> Get Confirmation Before Deleting Products Or Blogs
+(async () => {
+    let fetchBlog = await fetch('/api/blogs');
+    let fetchProd = await fetch('/api/products');
+
+    let resBlog = await fetchBlog.json();
+    let resProd = await fetchProd.json();
+
+    if (resBlog && resProd) {
+        let deleteDataForms = document.querySelectorAll('form.deleteDataForm');
+        if (deleteDataForms) {
+            deleteDataForms.forEach((form, ind) => {
+                form.addEventListener('submit', (e) => {
+                    let conf = confirm('Are You Sure You Want To Delete This Item?')
+                    if (!conf) {
+                        e.preventDefault()
+                    }
+                    else {
+                        return true
+                    }
+                })
+            })
+        }
+    }
+})();
 
 
 // >>>>>>>>>>>>>>>>>>>>>>>> Convert Text to Slug - /add-new-prod/ and /add-new-blog Page/
@@ -30,7 +56,6 @@ the_slugs.forEach(slug => {
 })
 
 
-
 // >>>>>>>>>>>>>>>>>>>>>>>> Re-check auth by requesting a secure resource (or reloading)
 window.addEventListener('pageshow', function (event) {
     if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
@@ -40,10 +65,8 @@ window.addEventListener('pageshow', function (event) {
 });
 
 
-
 // >>>>>>>>>>>>>>>>>>>>>>>> Added a Chevron Icon on DropDowns in Form
 dropDownContList.map(dropDown => dropDown.insertAdjacentHTML("afterend", chevronDown))
-
 
 
 // >>>>>>>>>>>>>>>>>>>>>>>> Password Toggle Functionality - Login Page
