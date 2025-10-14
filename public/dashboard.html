@@ -211,7 +211,7 @@
                             </a>
                             <div class="btns d-flex gap-3 ">
                                 <a href="/edit-product.html?slug=${elem.slug}" class="btn btn-primary  ">Edit</a>
-                                <form action="/api/products/delete?id=${elem.id}" method="POST">
+                                <form action="/api/products/delete?id=${elem.id}" method="POST" class="deleteDataForm" >
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </div>
@@ -245,13 +245,12 @@
                             </a>
                             <div class="btns d-flex gap-3 ">
                                 <a href="/edit-blog.html?blog_slug=${elem.blog_slug}" class="btn btn-primary  ">Edit</a>
-                                <form action="/api/blogs/delete?blog_id=${elem.blog_id}" method="POST">
+                                <form action="/api/blogs/delete?blog_id=${elem.blog_id}" method="POST" class="deleteDataForm" >
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </div>
                         </div>
                     `;
-
             })
             cont_blogs.innerHTML = iHtml + `<a href="/blogs" class="btn btn-primary" style="width: fit-content;" >View More</a>`;
         }
