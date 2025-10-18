@@ -25,6 +25,7 @@ const allowedOrigins = [
   "https://mohammedtalib786.github.io",
   "https://talibkweb.github.io",
   "http://192.168.0.114:5173",
+  "http://192.168.0.107:5173",
   "http://localhost:5173",
   "http://localhost:5500",
   "http://localhost:5501"
