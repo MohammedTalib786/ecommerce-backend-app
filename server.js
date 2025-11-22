@@ -20,16 +20,12 @@ require('./db/db');
 
 
 const allowedOrigins = [
-  "https://mohammedtalib786.github.io",
-  "https://talibkweb.github.io",
   "https://voltcart-ecom-app.vercel.app",
-  "https://voltcart-phi.vercel.app",
-  "http://192.168.0.114:5173",
+  "https://voltcart-ten.vercel.app",
   "http://192.168.0.104:5173",
   "http://192.168.0.107:5173",
   "http://localhost:5173",
-  "http://localhost:5500",
-  "http://localhost:5501"
+  "https://mohammedtalib786.github.io",
 ];
 
 
