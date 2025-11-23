@@ -18,14 +18,19 @@ require('./db/db');
 
 
 
+let networkURLS = [];
+for (let i = 100; i <= 130; i++) {
+  networkURLS.push(`http://192.168.0.${i}:5173`)
+}
+
+// console.log('networkURLS', networkURLS)
 
 const allowedOrigins = [
   "https://voltcart-ecom-app.vercel.app",
   "https://voltcart-ten.vercel.app",
-  "http://192.168.0.104:5173",
-  "http://192.168.0.107:5173",
   "http://localhost:5173",
   "https://mohammedtalib786.github.io",
+  ...networkURLS
 ];
 
 
